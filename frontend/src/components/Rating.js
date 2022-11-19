@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const Stars = ({ value, i, color }) => {
+const Star = ({ value, i, color }) => {
   return (
     <span>
       <i
@@ -24,7 +24,7 @@ const Rating = ({ numStars, value, text, color }) => {
       {Array(numStars)
         .fill(1)
         .map((el, i) => (
-          <Stars key={i} value={value} i={i} color={color} />
+          <Star key={i} value={value} i={i} color={color} />
         ))}
       <span> {text && text}</span>
     </div>
@@ -42,7 +42,7 @@ Rating.propTypes = {
   color: PropTypes.string,
 };
 
-Stars.propTypes = {
+Star.propTypes = {
   value: PropTypes.number.isRequired,
   i: PropTypes.number.isRequired,
   color: PropTypes.string,
