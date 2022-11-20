@@ -1,14 +1,24 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Row, Col, Image, ListGroup, Card, Button } from "react-bootstrap";
 import { useParams, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 import Rating from "../components/Rating";
-import products from "../products";
 
 const ProductScreen = () => {
   const { id } = useParams();
-  const product = products.find((product) => product._id === id);
   const navigate = useNavigate();
+
+  const [product, setProduct] = useState({});
+
+  const fetchProduct = async () => {
+    const { data } = await axios.get(`/api/products/${id}`);
+    setProduct(data);
+  };
+
+  useEffect(() => {
+    fetchProduct();
+  });
 
   return (
     <>
@@ -31,7 +41,7 @@ const ProductScreen = () => {
             </ListGroup.Item>
             <ListGroup.Item>
               <Rating
-                value={product.rating}
+                value={product.rating ? product.rating : 0}
                 text={`${product.numReviews} reviews`}
               />
             </ListGroup.Item>
